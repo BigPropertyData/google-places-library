@@ -1,5 +1,5 @@
 {
-    "name": "2amigos/google-places-library",
+    "name": "bpd/google-places-library",
     "description": "Google Places API Library",
     "keywords": [
         "2amigos",
@@ -9,7 +9,7 @@
     ],
     "type": "library",
     "license": "BSD-3-Clause",
-    "homepage": "https://github.com/2amigos/google-places-library",
+    "homepage": "https://github.com/bpd/google-places-library",
     "authors": [
         {
             "name": "2amigos",

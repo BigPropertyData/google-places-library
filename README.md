@@ -1,11 +1,13 @@
-# Google Places API Library
+#### Note: Forked from [2amigos/google-places-library](https://github.com/2amigos/google-places-library) to add concurrent requests support
 
-[![Latest Version](https://img.shields.io/github/tag/2amigos/google-places-library.svg?style=flat-square&label=release)](https://github.com/2amigos/google-places-library/tags)
+# Google Places API Library (with concurrent requests support)
+
+[![Latest Version](https://img.shields.io/github/tag/bpd/google-places-library.svg?style=flat-square&label=release)](https://github.com/bpd/google-places-library/tags)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/2amigos/google-places-library/master.svg?style=flat-square)](https://travis-ci.org/2amigos/google-places-library)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/2amigos/google-places-library.svg?style=flat-square)](https://scrutinizer-ci.com/g/2amigos/google-places-library/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/2amigos/google-places-library.svg?style=flat-square)](https://scrutinizer-ci.com/g/2amigos/google-places-library)
-[![Total Downloads](https://img.shields.io/packagist/dt/2amigos/google-places-library.svg?style=flat-square)](https://packagist.org/packages/2amigos/google-places-library)
+[![Build Status](https://img.shields.io/travis/bpd/google-places-library/master.svg?style=flat-square)](https://travis-ci.org/bpd/google-places-library)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/bpd/google-places-library.svg?style=flat-square)](https://scrutinizer-ci.com/g/bpd/google-places-library/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/bpd/google-places-library.svg?style=flat-square)](https://scrutinizer-ci.com/g/bpd/google-places-library)
+[![Total Downloads](https://img.shields.io/packagist/dt/bpd/google-places-library.svg?style=flat-square)](https://packagist.org/packages/bpd/google-places-library)
 
 Extension library to interact with [Google Places API](https://developers.google.com/places/documentation/index)
 
@@ -16,13 +18,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-$ composer require 2amigos/google-places-library
+$ composer require bpd/google-places-library
 ```
 
 or add
 
 ```
-"2amigos/google-places-library": "*"
+"bpd/google-places-library": "*"
 ```
 
 to the `require` section of your `composer.json` file.
@@ -113,7 +115,7 @@ We have added a PHP code fixer to standardize our code. It includes Symfony, PSR
 ## Credits
 
 - [Antonio Ramirez](https://github.com/tonydspaniard)
-- [All Contributors](https://github.com/2amigos/google-places-library/graphs/contributors)
+- [All Contributors](https://github.com/bpd/google-places-library/graphs/contributors)
 
 ## License
 

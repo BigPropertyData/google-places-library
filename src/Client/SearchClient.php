@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/google-places-library project.
+ * This file is part of the bpd/google-places-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -12,6 +12,7 @@
 namespace Da\Google\Places\Client;
 
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Promise\PromiseInterface;
 
 /**
  * Class Search handles places searching requests.
@@ -41,6 +42,27 @@ class SearchClient extends AbstractClient
      * @return mixed|null
      */
     public function nearby($location, $params = [])
+    {
+        return $this->nearbyAsync($location, $params)->wait();
+    }
+
+    /**
+     * Returns places within a specific area (asynchronous).
+     *
+     * @see https://developers.google.com/places/documentation/search
+     * @see https://developers.google.com/places/documentation/supported_types
+     * @see https://spreadsheets.google.com/pub?key=p9pdwsai2hDMsLkXsoM05KQ&gid=1
+     *
+     * @param string $location The latitude/longitude around which to retrieve Place information.
+     *                         This must be specified as latitude,longitude.
+     * @param array  $params   optional parameters
+     *
+     * @throws \InvalidArgumentException
+     * @throws RequestException          if the request fails
+     *
+     * @return PromiseInterface
+     */
+    public function nearbyAsync($location, $params = [])
     {
         $rankBy = trim(strtolower($this->getParamValue($params, 'rankby', 'prominence')));
         if (!in_array($rankBy, ['distance', 'prominence'], true)) {
@@ -79,6 +101,24 @@ class SearchClient extends AbstractClient
      */
     public function text($query, $params = [])
     {
+        return $this->textAsync($query, $params)->wait();
+    }
+
+    /**
+     * Returns places based on a string (asynchronous).
+     *
+     * @see https://developers.google.com/places/documentation/search#TextSearchRequests
+     *
+     * @param string $query  The text string on which to search, for example: "restaurant". The Place service will return
+     *                       candidate matches based on this string and order the results based on their perceived relevance.
+     * @param array  $params optional parameters
+     *
+     * @throws RequestException if the request fails
+     *
+     * @return PromiseInterface
+     */
+    public function textAsync($query, $params = [])
+    {
         $params['query'] = $query;
 
         return $this->request('textsearch', 'get', $params);
@@ -99,6 +139,25 @@ class SearchClient extends AbstractClient
      * @return mixed|null
      */
     public function radar($location, $radius, $params = [])
+    {
+        return $this->radarAsync($location, $radius, $params)->wait();
+    }
+
+    /**
+     * Returns places of a specific area (asynchronous).
+     *
+     * @param string $location The latitude/longitude around which to retrieve Place information. This must be specified
+     *                         as latitude,longitude.
+     * @param string $radius   Defines the distance (in meters) within which to return Place results. The maximum allowed
+     *                         radius is 50 000 meters.
+     * @param array  $params   optional parameters
+     *
+     * @throws \InvalidArgumentException
+     * @throws RequestException          if the request fails
+     *
+     * @return PromiseInterface
+     */
+    public function radarAsync($location, $radius, $params = [])
     {
         if (!isset($params['keyword']) && !isset($params['name']) && !isset($params['type'])) {
             throw new \InvalidArgumentException(
@@ -127,6 +186,26 @@ class SearchClient extends AbstractClient
      * @return mixed|null
      */
     public function autoComplete($input, $language = 'en', $params = [])
+    {
+        return $this->autoCompleteAsync($input, $language, $params)->wait();
+    }
+
+    /**
+     * Returns place predictions based on specific text and optional geographic bounds (asynchronous).
+     *
+     * @see https://developers.google.com/places/documentation/autocomplete#place_autocomplete_requests
+     * @see https://developers.google.com/places/documentation/autocomplete#example_autocomplete_requests
+     *
+     * @param string $input    The text string on which to search. The Place Autocomplete service will return candidate
+     *                         matches based on this string and order results based on their perceived relevance.
+     * @param string $language The language in which to return results.
+     * @param array  $params   optional parameters
+     *
+     * @throws RequestException if the request fails
+     *
+     * @return PromiseInterface
+     */
+    public function autoCompleteAsync($input, $language = 'en', $params = [])
     {
         $params['input'] = $input;
         $params['language'] = $language;

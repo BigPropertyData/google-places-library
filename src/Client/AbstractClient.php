@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the 2amigos/google-places-library project.
+ * This file is part of the bpd/google-places-library project.
  *
  * (c) 2amigOS! <http://2amigos.us/>
  *
@@ -12,7 +12,10 @@
 namespace Da\Google\Places\Client;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Promise\Promise;
+use GuzzleHttp\Promise\PromiseInterface;
 use InvalidArgumentException;
+use Psr\Http\Message\ResponseInterface;
 use SimpleXMLElement;
 
 /**
@@ -80,22 +83,25 @@ class AbstractClient
      * @param array  $params  the parameters to be bound to the call
      * @param array  $options the options to be attached to the client
      *
-     * @return mixed|null
+     * @return PromiseInterface
      */
     protected function request($cmd, $method = 'get', $params = [], $options = [])
     {
         $params = array_merge($params, ['key' => $this->key]);
 
-        $response = $this->getGuzzleClient()->request(
+        $promise = $this->getGuzzleClient()->requestAsync(
             $method,
             $this->getUrl($cmd),
             array_merge(['query' => $params], $options)
         );
 
-        if ($response->getStatusCode() === 200) {
-            return $this->parseResponse($response->getBody()->getContents());
-        }
-        return null;
+        return $promise->then(function (ResponseInterface $response) {
+            if ($response->getStatusCode() === 200) {
+                return $this->parseResponse($response->getBody()->getContents());
+            }
+
+            return null;
+        });
     }
 
     /**

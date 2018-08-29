@@ -1,6 +1,6 @@
 <?php
 $header = <<<'EOF'
-This file is part of the 2amigos/google-places-library project.
+This file is part of the bpd/google-places-library project.
 
 (c) 2amigOS! <http://2amigos.us/>
 
